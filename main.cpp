@@ -23,7 +23,6 @@ int main(){
             cout << "Error: No se pudo convertir el número de nodos. Línea leída: " << line << endl;
             return 1;
         }
-        cout << "Nodes Number: " << nodesNumber << endl;
 
         for (int i = 0; i < nodesNumber; i++) {
             vector<int> row;
@@ -46,6 +45,9 @@ int main(){
         cout << endl;
     }
 
+    cout << "Salida:" << endl;
+
+    //Dijsktra
     printDistances(graph, nodesNumber);
 
     return 0;
