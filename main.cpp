@@ -1,5 +1,5 @@
 #include "iostream"
-#include "dijkstra.cpp"
+#include "dijkstra.hpp"
 #include "string"
 #include "fstream"
 #include "sstream"
@@ -10,7 +10,7 @@ using namespace std;
 
 int main(){
     dijkstra();
-    //read a txt file
+
     string line;
     int nodesNumber = 0;
     vector<vector<int>> graph;
@@ -18,7 +18,6 @@ int main(){
 
     if (inputFile.is_open())
     {
-    
         getline(inputFile, line);
         stringstream ss(line);
         if (!(ss >> nodesNumber)) {
@@ -26,11 +25,27 @@ int main(){
             return 1;
         }
         cout << "Nodes Number: " << nodesNumber << endl;
+
+        for (int i = 0; i < nodesNumber; i++) {
+            vector<int> row;
+            getline(inputFile, line);
+            stringstream ss(line);
+            int value;
+            while (ss >> value) {
+                row.push_back(value);
+            }
+            graph.push_back(row);
+        }
         inputFile.close();
     }
     else cout << "Unable to open file";
 
-    
+    for (int i = 0; i < nodesNumber; i++) {
+        for (int j = 0; j < nodesNumber; j++) {
+            cout << graph[i][j] << " ";
+        }
+        cout << endl;
+    }
 
     cout << "Lets Code" << endl;
     return 0;
