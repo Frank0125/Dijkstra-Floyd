@@ -4,6 +4,8 @@
 #include "fstream"
 #include "sstream"
 
+//Daniel Fernandez Clausen 
+//Francisco Rochín Gómez
 
 using namespace std;
 // g++ -o main main.cpp para crear el exe
