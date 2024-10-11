@@ -3,14 +3,13 @@
 #include "string"
 #include "fstream"
 #include "sstream"
-#include "vector"
+
 
 using namespace std;
-// g++ -o main main.cpp to create the executable
+// g++ -o main main.cpp para crear el exe
 
 int main(){
-    dijkstra();
-
+    // Lógica para leer el archivo de entrada y convertirlo en una matriz
     string line;
     int nodesNumber = 0;
     vector<vector<int>> graph;
@@ -47,6 +46,7 @@ int main(){
         cout << endl;
     }
 
-    cout << "Lets Code" << endl;
+    printDistances(graph, nodesNumber);
+
     return 0;
 }

@@ -1,19 +1,69 @@
 #include "iostream"
+#include "vector"
 
 using namespace std;
 
-// El programa debe leer un numero n seguido de n x n valores enteros 
-// no negativos que representan una matriz de adyacencias de un grafo dirigido.
-// El primer número representa el número de nodos, los siguientes 
-// valores en la matriz, el valor en la posición i,j representan el peso 
-// del arco del nodo i al nodo j. Si no hay un arco entre el nodo i y el 
-// nodo j, el valor en la matriz debe ser -1
+//Función que calcula el minimo entre dos numeros paramatener estetica en el codigo
+int calculateMin(int a, int b) {
+    return a < b ? a : b;
+}
 
-// La salida del programa es, primero con el algoritmo de Dijkstra 
-// la distancia del nodo i a l nodo j para todos los nodos, y luego, 
-// la matriz resultado del algoritmo de Floyd
+vector<int> dijkstra(vector<vector<int>> graph, int nodesNumber, int pivotNode) {
+    if (pivotNode > nodesNumber || pivotNode < 1) {
+        cout << "Error: El nodo de inicio no existe en el grafo" << endl;
+        return vector<int>();
+    }
+    
+    //Primero Inicialimos la matriz de distancias donde
+    //empezamos con la distancia de un nodo a si mismo siendo 0 y
+    // todo lo demas 1000 (representaría infinito)
+    vector<int> distances = vector<int>(nodesNumber, 1000);
+    distances[pivotNode - 1] = 0;
 
-int dijkstra(){
-    cout << "Lets Code" << endl;
-    return 0;
+    //Calculamos la distancia minima
+    int min = 1000; //Representa infinito
+    
+    //Despues creamos la lista de visitados que es del tamaño de los nodos
+    //y la inicializamos en 0
+    //La posicion 0 corresponde al nodo 1, la posicion 1 al nodo 2, etc
+    vector<bool> visited (nodesNumber, false);
+    int currentNode = -1;
+
+    for (int i = 0; i < nodesNumber; i++) {
+        //Inicializamos el minimo en infinito
+        min = 1000;
+        for (int j = 0; j < nodesNumber; j++) {
+            //Logica implementada de Dijkstra
+            // dist[v] = min(dist[v], dist[u] + weight(u, v))
+            if (!visited[j] && distances[j] < min) {
+                min = distances[j];
+                currentNode = j;
+            }
+        }
+
+        //Marcamos el nodo como visitado
+        visited[currentNode] = true;
+
+        //Actualizamos las distancias
+        for (int j = 0; j < nodesNumber; j++) {
+            //Solamente si hay un arco entre el nodo actual y el nodo 
+            if (!visited[j] && graph[currentNode][j] != -1) {
+                distances[j] = calculateMin(distances[j], distances[currentNode]+ graph[currentNode][j]);
+            }
+        }
+    }
+
+    return distances;
+}
+
+void printDistances(vector<vector<int>>graph, int nodesNumber) {
+    for (int i = 0; i < nodesNumber; i++) {
+        vector<int> distances = dijkstra(graph, nodesNumber, i+1);
+        for (int j = 0; j < nodesNumber; j++) {
+            if (i!=j) {
+                cout << "Node " << i + 1 << " to node " << j + 1 << " : " << distances[j] << " " << endl;
+            }   
+        }
+        cout << endl;
+    }
 }
