@@ -1,5 +1,6 @@
 #include "iostream"
 #include "dijkstra.hpp"
+#include "floydWarshall.hpp"
 #include "string"
 #include "fstream"
 #include "sstream"
@@ -54,6 +55,8 @@ int main(){
 
     //Floyd
     floydWarshall(graph, nodesNumber);
+
+    printFloyd(graph, nodesNumber);
 
     return 0;
 }
