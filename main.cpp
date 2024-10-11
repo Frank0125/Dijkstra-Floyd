@@ -52,5 +52,10 @@ int main(){
     //Dijsktra
     printDistances(graph, nodesNumber);
 
+    //Floyd
+    floydWarshall(graph, nodesNumber);
+
     return 0;
 }
+
+
